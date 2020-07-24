@@ -15,8 +15,6 @@ class Articles extends React.Component {
     let tagUrl = `https://conduit.productionready.io/api/articles?limit=10&offset=0&tag=${tag}`;
     this.setState({ filteredtag: tag });
     this.props.dispatch(fetchArticles(tagUrl));
-    var globalButton = document.querySelector(".globalFeed");
-    var tagButton = document.querySelector(".filterFeed");
   };
 
   handleGlobalFeed = () => {
@@ -42,7 +40,7 @@ class Articles extends React.Component {
       marginRight: "15px",
       border: "0px",
       outline: "none",
-    cursor : "pointer",
+      cursor: "pointer",
       fontSize: "16px",
     };
 
@@ -54,7 +52,7 @@ class Articles extends React.Component {
       marginRight: "15px",
       borderBottom: "1.8px solid #5cb85c",
       outline: "none",
-      cursor : "pointer",
+      cursor: "pointer",
       color: "green",
       fontSize: "16px",
     };
