@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './Header'
 import Footer from './Footer'
+import {Link} from 'react-router-dom'
 
 export default class Login extends React.Component {
     render() {
@@ -9,7 +10,7 @@ export default class Login extends React.Component {
             <Header />
             <div className='container login'>
                 <h2>Sign In</h2>
-                <a href='/register'>Need an account?</a>
+                <Link to='/register'>Need an account?</Link>
                 <form >
                     <input type='email' placeholder='Email' name='email'></input>
                     <input type='password' placeholder='Password' name='password'></input>
