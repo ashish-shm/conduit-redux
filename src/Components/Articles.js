@@ -17,12 +17,12 @@ class Articles extends React.Component {
     this.props.dispatch(fetchArticles(tagUrl));
     var globalButton = document.querySelector(".globalFeed");
     var tagButton = document.querySelector(".filterFeed");
-    if (this.state.filteredtag) {
-      globalButton.classList.remove("active");
-      tagButton.classList.add("active");
-    } else {
-      globalButton.classList.add("active");
-    }
+  };
+
+  handleGlobalFeed = () => {
+    var articlesUrl = `https://conduit.productionready.io/api/articles?limit=10&offset=0`;
+    this.props.dispatch(fetchArticles(articlesUrl));
+    this.setState({ filteredtag: null });
   };
 
   componentDidMount() {
@@ -34,23 +34,56 @@ class Articles extends React.Component {
   }
 
   render() {
-    var articlesUrl = `https://conduit.productionready.io/api/articles?limit=10&offset=0`;
+    let tagButtonStyle = {
+      display: "inline-block",
+      padding: "15px",
+      backgroundColor: "transparent",
+      marginTop: "30px",
+      marginRight: "15px",
+      border: "0px",
+      outline: "none",
+    cursor : "pointer",
+      fontSize: "16px",
+    };
+
+    let activeButtonStyle = {
+      display: "inline-block",
+      padding: "15px",
+      backgroundColor: "transparent",
+      marginTop: "30px",
+      marginRight: "15px",
+      borderBottom: "1.8px solid #5cb85c",
+      outline: "none",
+      cursor : "pointer",
+      color: "green",
+      fontSize: "16px",
+    };
 
     return (
       <>
         <div className="container article-flex">
           <div className=" article-div ">
-            
-            <button className="globalFeed active">
-              <a href="/">Global Feed</a>
-            </button>
-            {this.state.filteredtag ? (
-                  <button className="filterFeed">
-                <a href="#">{this.state.filteredtag}</a>
-              </button>
-            
-            ) : 
-            null}
+            <div className="tagButtons">
+              <h4
+                className="feedbutton"
+                style={
+                  this.state.filteredtag ? tagButtonStyle : activeButtonStyle
+                }
+                onClick={this.handleGlobalFeed}
+              >
+                Global Feed
+              </h4>
+              {this.state.filteredtag ? (
+                <h4
+                  className="feedbutton"
+                  style={
+                    this.state.filteredtag ? activeButtonStyle : tagButtonStyle
+                  }
+                >
+                  {this.state.filteredtag}
+                </h4>
+              ) : null}
+            </div>
 
             {this.props.state.articles ? (
               this.props.state.articles.map((article) => (
