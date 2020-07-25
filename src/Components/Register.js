@@ -37,7 +37,7 @@ export default class Register extends React.Component {
         <div className="container login">
           <h2>Sign Up</h2>
           <Link to="/login">Have an account?</Link>
-          <form>
+          <div className='form'>
             <input
               type="text"
               placeholder="Username"
@@ -60,7 +60,7 @@ export default class Register extends React.Component {
               value={this.state.password}
             ></input>
             <input type="submit" onClick={this.handleSubmit}></input>
-          </form>
+          </div>
         </div>
         <Footer />
       </>
