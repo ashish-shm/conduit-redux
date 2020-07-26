@@ -49,6 +49,10 @@ export function loginUser(url, userInputData, history) {
         return res.json();
       })
       .then(({user}) => {
+        user && dispatch({
+          type: ERROR,
+          payload: "",
+        })
         user && localStorage.setItem('authToken', user.token)
         dispatch({
           type: LOGGED_USER,
