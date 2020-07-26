@@ -41,7 +41,7 @@ class Articles extends React.Component {
       border: "0px",
       outline: "none",
       cursor: "pointer",
-      fontSize: "16px",
+      fontSize: "18px",
     };
 
     let activeButtonStyle = {
@@ -54,7 +54,7 @@ class Articles extends React.Component {
       outline: "none",
       cursor: "pointer",
       color: "green",
-      fontSize: "16px",
+      fontSize: "18px",
     };
 
     return (
