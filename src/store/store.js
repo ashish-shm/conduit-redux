@@ -10,7 +10,7 @@ import {
 const initalState = {
   articles: [],
   tags: [],
-  loggedUser: {},
+  loggedUser: [],
   error: "",
 };
 

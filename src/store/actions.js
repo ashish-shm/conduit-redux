@@ -46,8 +46,9 @@ export function loginUser(url, userInputData, history) {
           })
 
         }
+        return res.json();
       })
-      .then((user) => {
+      .then(({user}) => {
         user && localStorage.setItem('authToken', user.token)
         dispatch({
           type: LOGGED_USER,
