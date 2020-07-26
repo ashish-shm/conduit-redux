@@ -5,12 +5,14 @@ import {
   SELECT_TAG,
   LOGGED_USER,
   ERROR,
+  IS_LOGGED_IN,
 } from "./types";
 
 const initalState = {
   articles: [],
   tags: [],
   loggedUser: [],
+  isLoggedIn: false,
   error: "",
 };
 
@@ -24,6 +26,8 @@ function reducer(state = initalState, action) {
       return { ...state, articles: action.payload };
     case LOGGED_USER:
       return { ...state, loggedUser: action.payload };
+    case IS_LOGGED_IN:
+      return { ...state, isLoggedIn: action.payload };
     case ERROR:
       return { ...state, error: action.payload };
 

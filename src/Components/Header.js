@@ -1,95 +1,22 @@
 import React from "react";
-import { NavLink, Link } from "react-router-dom";
+import { connect } from "react-redux";
+import AuthHeader from "./AuthHeader";
+import NonAuthHeader from "./NonAuthHeader";
 
-export default class Header extends React.Component {
+class Header extends React.Component {
   render() {
+    let { loggedUser, isLoggedIn } = this.props.state;
+
     return (
       <>
-        <div className="container">
-          <header className="header flex">
-            <h1 className="logo">
-              <Link to="/">conduit</Link>
-            </h1>
-            <nav>
-              <ul className="header-nav flex">
-                {/* <li className='nav-item'>
-                                <NavLink activeClassName='activeButton' className='navButton' to='/'>Home</NavLink>
-                            </li> */}
-                <li className="nav-item">
-                  <NavLink
-                    activeClassName="activeButton"
-                    className="navButton"
-                    to="/login"
-                  >
-                    Login
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink
-                    activeClassName="activeButton"
-                    className="navButton"
-                    to="/register"
-                  >
-                    Register
-                  </NavLink>
-                </li>
-              </ul>
-            </nav>
-          </header>
-        </div>
+        <h1>{loggedUser.username}</h1>
+        {isLoggedIn ? <AuthHeader /> : <NonAuthHeader />}
       </>
     );
   }
 }
 
-const AuthHeader = () => {
-  return (
-    <div className="container">
-      <header className="header flex">
-        <h1 className="logo">
-          <Link to="/">conduit</Link>
-        </h1>
-        <nav>
-          <ul className="header-nav flex">
-            <li className="nav-item">
-              <NavLink
-                activeClassName="activeButton"
-                className="navButton"
-                to="/"
-              >
-                Home
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                activeClassName="activeButton"
-                className="navButton"
-                to="/"
-              >
-                New
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                activeClassName="activeButton"
-                className="navButton"
-                to="/"
-              >
-                New
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                activeClassName="activeButton"
-                className="navButton"
-                to="/"
-              >
-                New
-              </NavLink>
-            </li>
-          </ul>
-        </nav>
-      </header>
-    </div>
-  );
-};
+function mapState(state) {
+  return { state };
+}
+export default connect(mapState)(Header);
