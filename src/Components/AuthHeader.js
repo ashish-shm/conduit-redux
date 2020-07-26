@@ -23,25 +23,25 @@ const  AuthHeader = (props) => (
               <NavLink
                 activeClassName="activeButton"
                 className="navButton"
-                to="/login"
+                to="/new"
               >
-                New
+                New Article
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink
                 activeClassName="activeButton"
                 className="navButton"
-                to="/login"
+                to="/settings"
               >
-                New
+                Settings
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink
                 activeClassName="activeButton"
                 className="navButton"
-                to="/login"
+                to="/myfeed"
               >
                 {props.state.loggedUser.username}
               </NavLink>

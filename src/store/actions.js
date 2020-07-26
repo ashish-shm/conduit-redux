@@ -1,4 +1,4 @@
-import { ADD_ARTICLES, ADD_TAGS, LOGGED_USER, ERROR, IS_LOGGED_IN } from "./types";
+import { ADD_ARTICLES, ADD_TAGS, LOGGED_USER, ERROR} from "./types";
 
 export function fetchArticles(url) {
   return function (dispatch) {
@@ -53,10 +53,7 @@ export function loginUser(url, userInputData, history) {
           type: ERROR,
           payload: "",
         })
-        user && dispatch({
-          type: IS_LOGGED_IN,
-          payload : true,
-        })
+        
 
         user && localStorage.setItem('authToken', user.token)
         dispatch({

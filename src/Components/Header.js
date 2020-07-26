@@ -5,14 +5,9 @@ import NonAuthHeader from "./NonAuthHeader";
 
 class Header extends React.Component {
   render() {
-    let { loggedUser, isLoggedIn } = this.props.state;
+    let { isLoggedIn } = this.props.state;
 
-    return (
-      <>
-        <h1>{loggedUser.username}</h1>
-        {isLoggedIn ? <AuthHeader /> : <NonAuthHeader />}
-      </>
-    );
+    return <>{isLoggedIn ? <AuthHeader /> : <NonAuthHeader />}</>;
   }
 }
 
