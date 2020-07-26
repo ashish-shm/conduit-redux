@@ -6,6 +6,7 @@ import {
   LOGGED_USER,
   ERROR,
   IS_LOGGED_IN,
+  UPDATE_USER,
 } from "./types";
 
 const initalState = {
@@ -28,6 +29,8 @@ function reducer(state = initalState, action) {
       return { ...state, loggedUser: action.payload };
     case IS_LOGGED_IN:
       return { ...state, isLoggedIn: action.payload };
+    case UPDATE_USER:
+      return { ...state, loggedUser: action.payload };
     case ERROR:
       return { ...state, error: action.payload };
 
