@@ -14,7 +14,7 @@ const  AuthHeader = (props) => (
               <NavLink
                 activeClassName="activeButton"
                 className="navButton"
-                to="/"
+                to='/'
               >
                 Home
               </NavLink>
