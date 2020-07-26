@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import {updateUser} from '../store/actions'
 import { connect } from "react-redux";
 
 class Register extends React.Component {
@@ -19,22 +20,9 @@ class Register extends React.Component {
     this.setState({ [name]: value });
 
   handleSubmit = () => {
+    let userInputData = {...this.state};  
     let url = "https://conduit.productionready.io/api/user";
-    fetch(url, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Token ${localStorage.authToken}`,
-        body: JSON.stringify({ user: this.state }),
-      },
-    })
-      .then((res) => {
-        console.log(this.state);
-        if (res.status === 200) {
-          this.props.history.push("/");
-        }
-      })
-      .catch(Error);
+    this.props.dispatch(updateUser(url, userInputData, this.props.history ));
   };
 
   render() {

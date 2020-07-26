@@ -1,4 +1,10 @@
-import { ADD_ARTICLES, ADD_TAGS, LOGGED_USER, ERROR} from "./types";
+import {
+  ADD_ARTICLES,
+  ADD_TAGS,
+  LOGGED_USER,
+  ERROR,
+  UPDATE_USER,
+} from "./types";
 
 export function fetchArticles(url) {
   return function (dispatch) {
@@ -38,28 +44,59 @@ export function loginUser(url, userInputData, history) {
       .then((res) => {
         if (res.status === 200) {
           history.push("/");
-        }
-        else {
+        } else {
           dispatch({
             type: ERROR,
-            payload: 'Something went wrong',
-          })
-
+            payload: "Something went wrong",
+          });
         }
         return res.json();
       })
-      .then(({user}) => {
-        user && dispatch({
-          type: ERROR,
-          payload: "",
-        })
-        
+      .then(({ user }) => {
+        user &&
+          dispatch({
+            type: ERROR,
+            payload: "",
+          });
 
-        user && localStorage.setItem('authToken', user.token)
+        user && localStorage.setItem("authToken", user.token);
         dispatch({
           type: LOGGED_USER,
           payload: user,
         });
+      });
+  };
+}
+
+export function updateUser(url, userInputData, history) {
+  return function (dispatch) {
+    fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Token ${localStorage.authToken}`,
+      },
+      body: JSON.stringify({ user: userInputData }),
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          history.push("/");
+        }
+
+        return res.json();
+      })
+      .then(({ user }) => {
+        user &&
+          dispatch({
+            type: ERROR,
+            payload: "",
+          });
+
+        user &&
+          dispatch({
+            type: UPDATE_USER,
+            payload: user,
+          });
       });
   };
 }
