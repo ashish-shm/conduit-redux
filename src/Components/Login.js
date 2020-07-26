@@ -46,6 +46,7 @@ class Login extends React.Component {
               onChange={this.handleInput}
               value={this.state.password}
             ></input>
+            {this.props.state.error ? <p>{this.props.state.error}</p> : null}
             <input type="submit" onClick={this.handleSubmit}></input>
           </div>
         </div>

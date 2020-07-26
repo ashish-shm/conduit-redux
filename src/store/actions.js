@@ -1,4 +1,4 @@
-import { ADD_ARTICLES, ADD_TAGS, LOGGED_USER } from "./types";
+import { ADD_ARTICLES, ADD_TAGS, LOGGED_USER, ERROR } from "./types";
 
 export function fetchArticles(url) {
   return function (dispatch) {
@@ -38,6 +38,13 @@ export function loginUser(url, userInputData, history) {
       .then((res) => {
         if (res.status === 200) {
           history.push("/");
+        }
+        else {
+          dispatch({
+            type: ERROR,
+            payload: 'Something went wrong',
+          })
+
         }
       })
       .then((user) => {

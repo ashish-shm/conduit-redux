@@ -1,10 +1,17 @@
 import { createStore, applyMiddleware } from "redux";
-import { ADD_ARTICLES, ADD_TAGS, SELECT_TAG, LOGGED_USER } from "./types";
+import {
+  ADD_ARTICLES,
+  ADD_TAGS,
+  SELECT_TAG,
+  LOGGED_USER,
+  ERROR,
+} from "./types";
 
 const initalState = {
   articles: [],
   tags: [],
   loggedUser: {},
+  error: "",
 };
 
 function reducer(state = initalState, action) {
@@ -17,6 +24,8 @@ function reducer(state = initalState, action) {
       return { ...state, articles: action.payload };
     case LOGGED_USER:
       return { ...state, loggedUser: action.payload };
+    case ERROR:
+      return { ...state, error: action.payload };
 
     default:
       return state;
