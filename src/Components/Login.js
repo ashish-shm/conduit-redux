@@ -2,9 +2,10 @@ import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import { Link } from "react-router-dom";
+import {connect} from 'react-redux';
 import {loginUser} from '../store/actions'
 
-export default class Login extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,7 +20,7 @@ export default class Login extends React.Component {
   handleSubmit = () => {
     let userInputData = {...this.state};  
     let url = "https://conduit.productionready.io/api/users/login";
-    this.props.dispatch(loginUser(url, userInputData, this.props.history ))
+    this.props.dispatch(loginUser(url, userInputData, this.props.history ));
   }
     
 
@@ -53,3 +54,8 @@ export default class Login extends React.Component {
     );
   }
 }
+
+function mapState(state) {
+    return { state };
+  }
+  export default connect(mapState)(Login);
