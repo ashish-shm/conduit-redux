@@ -30,7 +30,7 @@ class Register extends React.Component {
       <>
         <Header />
         <div className="container login">
-          <h2 className="publish_head">Your Settings</h2>
+          <h2 className="publish_head">Update Your Settings</h2>
           <div className="form">
             <input
               type="text"

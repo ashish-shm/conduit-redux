@@ -10,8 +10,7 @@ import Loader from './Loader'
 class AllContent extends React.Component {
   
   render() {
-    let {isLoggedIn} = this.props.state;
-    if(!isLoggedIn){
+    if(!this.props.state.isLoggedIn){
       return <Loader />;
     }
     return (

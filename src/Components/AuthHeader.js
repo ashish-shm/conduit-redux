@@ -1,6 +1,7 @@
 import React from 'react'
-import {Link, NavLink} from 'react-router-dom'
+import {Link, NavLink, withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
+import Logout from './Logout'
 
 const  AuthHeader = (props) => (
     <div className="container">
@@ -14,7 +15,7 @@ const  AuthHeader = (props) => (
               <NavLink
                 activeClassName="activeButton"
                 className="navButton"
-                to='/'
+                 exact to='/'
               >
                 Home
               </NavLink>
@@ -46,14 +47,20 @@ const  AuthHeader = (props) => (
                 {props.state.loggedUser.username}
               </NavLink>
             </li>
+            <li className="nav-item">
+              <Logout />
+               
+            </li>
           </ul>
         </nav>
       </header>
     </div>
   );
 
+ 
+
   function mapState(state) {
     return { state };
   }
-  export default connect(mapState)(AuthHeader);
+  export default withRouter(connect(mapState)(AuthHeader));
 
