@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchArticles, fetchTags } from "../store/actions";
+import { SINGLE_ARTICLE } from "../store/types";
+import { withRouter, Link } from "react-router-dom";
 
 class Articles extends React.Component {
   constructor(props) {
@@ -9,6 +11,40 @@ class Articles extends React.Component {
       filteredtag: null,
     };
   }
+
+  handleFavourite = (slug, i) => {
+    var articlesUrl = `https://conduit.productionready.io/api/articles?limit=10&offset=0`;
+
+    let url = `https://conduit.productionready.io/api/articles/${slug}/favorite`;
+    fetch(url, {
+      method: "POST",
+      headers: {
+        authorization: `Token ${localStorage.authToken}`,
+      },
+    }).then((res) => {
+      if (res.status === 200) {
+        return res.json();
+      }
+    });
+  };
+
+  handleReadMore = (slug) => {
+    let url = ` https://conduit.productionready.io/api/articles/${slug}`;
+    fetch(url, {
+      headers: {
+        authorization: `Token ${localStorage.authToken}`,
+      },
+    })
+      .then((res) => {
+        return res.json()
+      })
+      .then((article) => {
+        this.props.dispatch({
+          type: SINGLE_ARTICLE,
+          payload: article,
+        });
+      });
+  };
 
   handleTagClick = (tag) => {
     console.log(tag);
@@ -84,26 +120,53 @@ class Articles extends React.Component {
             </div>
 
             {this.props.state.articles ? (
-              this.props.state.articles.map((article) => (
+              this.props.state.articles.map((article, i) => (
                 <div className="articleCard">
                   <div className="authorPicture pictureflex">
-                    <img
-                      src={article.author.image}
-                      alt={article.author.username}
-                      className="authorDp"
-                    ></img>
-                    <ul className="authorTime">
-                      <h3 className="articleAuthor">
-                        Author: {article.author.username}
-                      </h3>
-                      <p>{new Date(article.createdAt).toDateString()}</p>
-                    </ul>
-                  </div>
-                  <h2 className="articleTitle">{article.title}</h2>
+                    <div className="picture_flex">
+                      <div>
+                        <img
+                          src={article.author.image}
+                          alt={article.author.username}
+                          className="authorDp"
+                        ></img>
+                      </div>
 
-                  <p className="articledes">
-                    Description: {article.description}
-                  </p>
+                      <ul className="authorTime">
+                        <li>
+                          <h3 className="articleAuthor">
+                            Author: {article.author.username}
+                          </h3>
+                        </li>
+                        <li>
+                          <p>{new Date(article.createdAt).toDateString()}</p>
+                        </li>
+                      </ul>
+                    </div>
+                    <div>
+                      <button
+                        class="btn btn-sm btn-primary"
+                        onClick={() => this.handleFavourite(article.slug)}
+                      >
+                        <i class="ion-heart"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <Link
+                      to={`articles/${article.slug}`}
+                      onClick={() => this.handleReadMore(article.slug)}
+                      className="articleTitle"
+                    >
+                      {article.title}
+                    </Link>
+
+                    <p className="articledes">
+                      Description: {article.description}
+                    </p>
+                    <Link to={`articles/${article.slug}`} onClick={()=> this.handleReadMore(article.slug)}>Read More</Link>
+                  </div>
                 </div>
               ))
             ) : (
@@ -131,4 +194,4 @@ class Articles extends React.Component {
 function mapState(state) {
   return { state };
 }
-export default connect(mapState)(Articles);
+export default withRouter(connect(mapState)(Articles));

@@ -234,8 +234,20 @@ ul {
 
 .pictureflex {
   display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.picture_flex{
+  display: flex;
   justify-content: flex-start;
   align-items: flex-start;
+}
+
+
+
+.likebtn{
+  margin-left: 400px;
 }
 
 .authorDp {
@@ -251,10 +263,11 @@ ul {
 
 .article-flex {
   display: flex;
+  
 }
 
 .article-div {
-  width: 70%;
+  width: 60%;
 }
 
 .tags-div {

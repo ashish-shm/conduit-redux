@@ -5,6 +5,7 @@ import {
   ERROR,
   UPDATE_USER,
   IS_LOGGED_IN,
+  SINGLE_ARTICLE
 } from "./types";
 
 export function fetchArticles(url) {
@@ -104,5 +105,19 @@ export function updateUser(url, userInputData, history) {
             payload: user,
           });
       });
+  };
+}
+
+export function singleArticle(url) {
+  return function (dispatch) {
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Token ${localStorage.authToken}`,
+      },
+    })
+      .then((res) => res.json())
+      .then(({ article }) => dispatch({ type: SINGLE_ARTICLE, payload: article }));
   };
 }
