@@ -4,6 +4,7 @@ import {
   LOGGED_USER,
   ERROR,
   UPDATE_USER,
+  IS_LOGGED_IN,
 } from "./types";
 
 export function fetchArticles(url) {
@@ -58,6 +59,11 @@ export function loginUser(url, userInputData, history) {
             type: ERROR,
             payload: "",
           });
+
+          user && dispatch({
+            type : IS_LOGGED_IN,
+            payload : true,
+          })
 
         user && localStorage.setItem("authToken", user.token);
         dispatch({

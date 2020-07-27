@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "./Header";
+import NonAuthHeader from "./NonAuthHeader";
 import Footer from "./Footer";
 import { Link } from "react-router-dom";
 import {connect} from 'react-redux';
@@ -27,7 +27,7 @@ class Login extends React.Component {
   render() {
     return (
       <>
-        <Header />
+        <NonAuthHeader />
         <div className="container login">
           <h2>Sign In</h2>
           <Link to="/register">Need an account?</Link>

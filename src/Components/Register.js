@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "./Header";
+import NonAuthHeader from "./Header";
 import Footer from "./Footer";
 import { Link } from "react-router-dom";
 
@@ -33,7 +33,7 @@ export default class Register extends React.Component {
   render() {
     return (
       <>
-        <Header />
+        <NonAuthHeader />
         <div className="container login">
           <h2>Sign Up</h2>
           <Link to="/login">Have an account?</Link>
