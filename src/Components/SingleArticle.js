@@ -4,38 +4,36 @@ import Header from "./Header";
 import { singleArticle } from "../store/actions";
 
 class SingleArticle extends Component {
+
+  componentDidMount() {
+    const slug = this.props.match.params.slug;
+    const url = `https://conduit.productionready.io/api/articles/${slug}`;
+    this.props.dispatch(singleArticle(url));
+  }
   render() {
+    let { title, createdAt, body } = this.props.state.singleArticle;
+    // let  {image, username} 
+    //  = this.props.state.singleArticle.author;
+
     return (
       <div>
         <Header />
         <>
           <section className="hero-section">
             <div className="container">
-              <h1 className="hero-title">
-                {this.props.state.singleArticle.article.title}
-              </h1>
+              <h1 className="hero-description">{title}</h1>
+              <p className="hero-description">{body}</p>
               <div className="picture_flex">
                 <div>
-                  <img
-                    src={this.props.state.singleArticle.article.author.image}
-                    alt={this.props.state.singleArticle.article.author.username}
-                    className="authorDp"
-                  ></img>
+                  {/* <img src={image} alt={username} className="authorDp"></img> */}
                 </div>
 
                 <ul className="authorTime">
                   <li>
-                    <h3 className="articleAuthor">
-                      Author:{" "}
-                      {this.props.state.singleArticle.article.author.username}
-                    </h3>
+                    {/* <h3 className="articleAuthor">Author: {username}</h3> */}
                   </li>
                   <li>
-                    <p>
-                      {new Date(
-                        this.props.state.singleArticle.article.createdAt
-                      ).toDateString()}
-                    </p>
+                    <p>{new Date(createdAt).toDateString()}</p>
                   </li>
                 </ul>
               </div>

@@ -134,9 +134,9 @@ class Articles extends React.Component {
 
                       <ul className="authorTime">
                         <li>
-                          <h3 className="articleAuthor">
+                          <Link to={`/profile/${article.author.username}`} className="articleAuthor">
                             Author: {article.author.username}
-                          </h3>
+                          </Link>
                         </li>
                         <li>
                           <p>{new Date(article.createdAt).toDateString()}</p>

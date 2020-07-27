@@ -205,6 +205,12 @@ ul {
   letter-spacing: 0.25rem;
 }
 
+.hero-image{
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+}
+
 .hero-description {
   padding: 10px 0;
   color: blanchedalmond;

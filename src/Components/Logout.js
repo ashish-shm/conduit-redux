@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-// import { IS_LOGGED_IN } from "../store/types";
+// import { IS_LOGGED_IN } from "../store/types";m
 
 class Logout extends React.Component {
   constructor(props) {

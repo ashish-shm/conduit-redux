@@ -7,4 +7,5 @@ export const AUTH_HEADER = 'AUTH_HEADER'
 export const IS_LOGGED_IN = 'IS_LOGGED_IN'
 export const UPDATE_USER = 'UPDATE_USER'
 export const SINGLE_ARTICLE = 'SINGLE_ARTICLE'
+export const USER_PROFILE = 'USER_PROFILE'
 
