@@ -197,6 +197,14 @@ ul {
   text-align: center;
 }
 
+.singleArticle-section{
+  background-color: black;
+  opacity: 0.8;
+  padding: 20px 0;
+
+
+}
+
 .hero-title {
   font-size: 56px;
   font-family: "Titillium Web", sans-serif;
@@ -211,6 +219,13 @@ ul {
   border-radius: 50%;
 }
 
+.singleArticle-image{
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+
+}
+
 .hero-description {
   padding: 10px 0;
   color: blanchedalmond;
@@ -218,6 +233,16 @@ ul {
   font-size: 24px;
   font-weight: 10;
   line-height: 1.5;
+}
+
+.body-description{
+  padding: 30px 0;
+  color: black;
+  font-family: "Titillium Web", sans-serif;
+  font-size: 18px;
+  font-weight: 10;
+  line-height: 1.5;
+
 }
 
 .articleCard {
@@ -232,6 +257,19 @@ ul {
 
 .articleAuthor {
   font-size: 15px;
+}
+.singleArticle-author{
+  font-size: 16px;
+  color: white;
+}
+.singleArticle-date{
+  font-size: 16px;
+  color: white;
+}
+
+.singleArticle-articleAuthor{
+  font-size: 16px;
+  color: white;
 }
 
 .articledes {
