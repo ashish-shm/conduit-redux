@@ -9,6 +9,8 @@ class Articles extends React.Component {
     super(props);
     this.state = {
       filteredtag: null,
+      active : 'yourFeed' ,
+      feedArticles : [],
     };
   }
 
@@ -50,14 +52,38 @@ class Articles extends React.Component {
     console.log(tag);
     let tagUrl = `https://conduit.productionready.io/api/articles?limit=10&offset=0&tag=${tag}`;
     this.setState({ filteredtag: tag });
+    this.setState({active : 'tag'})
     this.props.dispatch(fetchArticles(tagUrl));
   };
+
+  handleYourFeed = () =>{
+    this.setState({active : 'yourFeed'})
+    let url = `https://conduit.productionready.io/api/articles/feed?limit=10&offset=0`
+    fetch(url, {
+      headers: {
+        authorization : `Token ${localStorage.authToken}`
+      }
+    }).then((res => {
+      if(res.status === 200)
+      return res.json();
+
+    })).then((data) => {
+      this.setState({feedArticles : data})
+    })
+  }
+
+  addActive = () => {
+    this.setState({active : 'tag'})
+  }
 
   handleGlobalFeed = () => {
     var articlesUrl = `https://conduit.productionready.io/api/articles?limit=10&offset=0`;
     this.props.dispatch(fetchArticles(articlesUrl));
     this.setState({ filteredtag: null });
+    this.setState({active : 'global'})
   };
+
+  
 
   componentDidMount() {
     var articlesUrl = `https://conduit.productionready.io/api/articles?limit=10&offset=0`;
@@ -93,33 +119,104 @@ class Articles extends React.Component {
       fontSize: "18px",
     };
 
+    
+
     return (
       <>
         <div className="container article-flex">
           <div className=" article-div ">
             <div className="tagButtons">
+            {this.props.state.isLoggedIn ? <h4
+                className="feedbutton"
+                style={
+                  this.state.active === 'yourFeed' ?activeButtonStyle :  tagButtonStyle
+                }
+                onClick={this.handleYourFeed}
+              >
+                Your Feed
+              </h4>: null}
+            
+              
               <h4
                 className="feedbutton"
                 style={
-                  this.state.filteredtag ? tagButtonStyle : activeButtonStyle
+                  this.state.active==='global' ? activeButtonStyle : tagButtonStyle
                 }
                 onClick={this.handleGlobalFeed}
               >
                 Global Feed
               </h4>
-              {this.state.filteredtag ? (
+              {this.state.filteredtag? (
                 <h4
                   className="feedbutton"
                   style={
-                    this.state.filteredtag ? activeButtonStyle : tagButtonStyle
+                    this.state.active === 'tag'? activeButtonStyle : tagButtonStyle
                   }
+                  onClick={this.addActive}
                 >
                   {this.state.filteredtag}
                 </h4>
               ) : null}
             </div>
+                  
+            {this.state.active ==='yourFeed' && this.state.feedArticles.articlesCount ? (
+              this.state.feedArticles.articles.map((article, i) => (
+                <div className="articleCard">
+                  <div className="authorPicture pictureflex">
+                    <div className="picture_flex">
+                      <div>
+                        <img
+                          src={article.author.image}
+                          alt={article.author.username}
+                          className="authorDp"
+                        ></img>
+                      </div>
 
-            {this.props.state.articles ? (
+                      <ul className="authorTime">
+                        <li>
+                          <Link to={`/profile/${article.author.username}`} className="articleAuthor">
+                            Author: {article.author.username}
+                          </Link>
+                        </li>
+                        <li>
+                          <p>{new Date(article.createdAt).toDateString()}</p>
+                        </li>
+                      </ul>
+                    </div>
+                    <div>
+                      <button
+                        class="btn btn-sm btn-primary"
+                        onClick={() => this.handleFavourite(article.slug)}
+                      >
+                        <i class="ion-heart"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <Link
+                      to={`articles/${article.slug}`}
+                      onClick={() => this.handleReadMore(article.slug)}
+                      className="articleTitle"
+                    >
+                      {article.title}
+                    </Link>
+
+                    <p className="articledes">
+                      Description: {article.description}
+                    </p>
+                    <Link to={`articles/${article.slug}`} onClick={()=> this.handleReadMore(article.slug)}>Read More</Link>
+                  </div>
+                </div>
+              ))
+            ) : (
+              null
+            )}
+
+
+            
+
+            {(this.state.active ==='global') && this.props.state.articles ? (
               this.props.state.articles.map((article, i) => (
                 <div className="articleCard">
                   <div className="authorPicture pictureflex">
@@ -170,7 +267,61 @@ class Articles extends React.Component {
                 </div>
               ))
             ) : (
-              <h2>Loading</h2>
+              null
+            )}
+
+{(this.state.active ==='tag') && this.props.state.articles ? (
+              this.props.state.articles.map((article, i) => (
+                <div className="articleCard">
+                  <div className="authorPicture pictureflex">
+                    <div className="picture_flex">
+                      <div>
+                        <img
+                          src={article.author.image}
+                          alt={article.author.username}
+                          className="authorDp"
+                        ></img>
+                      </div>
+
+                      <ul className="authorTime">
+                        <li>
+                          <Link to={`/profile/${article.author.username}`} className="articleAuthor">
+                            Author: {article.author.username}
+                          </Link>
+                        </li>
+                        <li>
+                          <p>{new Date(article.createdAt).toDateString()}</p>
+                        </li>
+                      </ul>
+                    </div>
+                    <div>
+                      <button
+                        class="btn btn-sm btn-primary"
+                        onClick={() => this.handleFavourite(article.slug)}
+                      >
+                        <i class="ion-heart"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <Link
+                      to={`articles/${article.slug}`}
+                      onClick={() => this.handleReadMore(article.slug)}
+                      className="articleTitle"
+                    >
+                      {article.title}
+                    </Link>
+
+                    <p className="articledes">
+                      Description: {article.description}
+                    </p>
+                    <Link to={`articles/${article.slug}`} onClick={()=> this.handleReadMore(article.slug)}>Read More</Link>
+                  </div>
+                </div>
+              ))
+            ) : (
+              null
             )}
           </div>
           <div className="container tags-div ">
@@ -182,7 +333,7 @@ class Articles extends React.Component {
                 </button>
               ))
             ) : (
-              <h2>Loading</h2>
+              null
             )}
           </div>
         </div>

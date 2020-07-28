@@ -42,7 +42,7 @@ const  AuthHeader = (props) => (
               <NavLink
                 activeClassName="activeButton"
                 className="navButton"
-                to="/myfeed"
+                to={`/profile/${props.state.loggedUser.username}`}
               >
                 {props.state.loggedUser.username}
               </NavLink>

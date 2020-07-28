@@ -12,8 +12,8 @@ class SingleArticle extends Component {
   }
   render() {
     let { title, createdAt, body } = this.props.state.singleArticle;
-    // let  {image, username} 
-    //  = this.props.state.singleArticle.author;
+    let  {image, username} 
+     = this.props.state.singleArticle;
 
     return (
       <div>
@@ -25,12 +25,12 @@ class SingleArticle extends Component {
               <p className="hero-description">{body}</p>
               <div className="picture_flex">
                 <div>
-                  {/* <img src={image} alt={username} className="authorDp"></img> */}
+                  <img src={image} alt={username} className="authorDp"></img>
                 </div>
 
                 <ul className="authorTime">
                   <li>
-                    {/* <h3 className="articleAuthor">Author: {username}</h3> */}
+                    <h3 className="articleAuthor">Author: {username}</h3>
                   </li>
                   <li>
                     <p>{new Date(createdAt).toDateString()}</p>
