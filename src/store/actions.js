@@ -5,7 +5,8 @@ import {
   ERROR,
   UPDATE_USER,
   IS_LOGGED_IN,
-  SINGLE_ARTICLE
+  SINGLE_ARTICLE,
+  ADD_COMMENT
 } from "./types";
 
 export function fetchArticles(url) {
@@ -61,10 +62,11 @@ export function loginUser(url, userInputData, history) {
             payload: "",
           });
 
-          user && dispatch({
-            type : IS_LOGGED_IN,
-            payload : true,
-          })
+        user &&
+          dispatch({
+            type: IS_LOGGED_IN,
+            payload: true,
+          });
 
         user && localStorage.setItem("authToken", user.token);
         dispatch({
@@ -118,6 +120,48 @@ export function singleArticle(url) {
       },
     })
       .then((res) => res.json())
-      .then(({ article }) => dispatch({ type: SINGLE_ARTICLE, payload: article }));
+      .then(({ article }) =>
+        dispatch({ type: SINGLE_ARTICLE, payload: article })
+      );
+  };
+}
+
+export function fetchComments(url) {
+  return function (dispatch) {
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Token ${localStorage.authToken}`,
+      },
+    })
+      .then((res) => res.json())
+      .then(({ comments }) =>
+        dispatch({ type: ADD_COMMENT, payload: comments })
+      );
+  };
+}
+
+export function addComment(url, userInputData, history, slug) {
+  return function (dispatch) {
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Token ${localStorage.authToken}`,
+      },
+      body: JSON.stringify({comment : userInputData})
+    }).then((res) => {
+      if (res.status === 200) {
+        history.push(`/`)
+        
+      }
+      return res.json();
+    }).then(({comment} )=> {
+     comment && dispatch({ type: ADD_COMMENT, payload: comment })
+
+    })
+
+    
   };
 }

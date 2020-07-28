@@ -8,6 +8,8 @@ class UserProfile extends Component {
   componentDidMount() {
     let username = this.props.match.params.slug;
     let url = `https://conduit.productionready.io/api/profiles/${username}`;
+    let url2 = `https://conduit.productionready.io/api/articles?author=lula1234&limit=5&offset=0`
+    let url3 = `https://conduit.productionready.io/api/articles?favorited=lula1234&limit=5&offset=0`
     fetch(url, {
       method: "GET",
       headers: {
@@ -47,21 +49,24 @@ class UserProfile extends Component {
     return (
       <>
         <Header />
-        <section className="hero-section">
+        <section className="profile-section">
           <div className="container">
             <img src={image} className="hero-image" alt={username} />
             <p className="hero-description">{username}</p>
-            <p className="hero-description">{bio}</p>
+            
           </div>
-
+      <div className='container'>
+      <div className='followedit'>
           {this.props.state.loggedUser.username &&
           this.props.state.loggedUser.username === username ? (
-            <Link to="/settings">Edit Profile</Link>
+            <Link to="/settings"><button className='followbtn'>Edit Profile</button></Link>
           ) : following ? (
-            <button>Unfollow</button>
+            <button className='followbtn' onClick={this.handleFollow}>Unfollow</button>
           ) : (
-            <button>follow</button>
+            <button className='followbtn' onClick={this.handleFollow}>follow</button>
           )}
+          </div>
+          </div>
         </section>
       </>
     );

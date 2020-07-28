@@ -9,6 +9,7 @@ import {
   UPDATE_USER,
   SINGLE_ARTICLE,
   USER_PROFILE,
+  ADD_COMMENT,
 } from "./types";
 
 const initalState = {
@@ -19,6 +20,7 @@ const initalState = {
   error: "",
   singleArticle: {},
   userProfile: {},
+  comments: [],
 };
 
 function reducer(state = initalState, action) {
@@ -37,8 +39,10 @@ function reducer(state = initalState, action) {
       return { ...state, loggedUser: action.payload };
     case SINGLE_ARTICLE:
       return { ...state, singleArticle: action.payload };
-      case USER_PROFILE:
+    case USER_PROFILE:
       return { ...state, userProfile: action.payload };
+    case ADD_COMMENT:
+      return { ...state, comments: action.payload };
     case ERROR:
       return { ...state, error: action.payload };
 
