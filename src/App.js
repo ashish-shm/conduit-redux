@@ -9,7 +9,6 @@ import Register from "./Components/Register";
 import Error from "./Components/Error";
 import NewArticle from "./Components/NewArticle";
 import UserProfile from './Components/UserProfile'
-import LoggedUserProfile from './Components/LoggedUserProfile'
 import SingleArticle from './Components/SingleArticle';
 import { Route, Switch } from "react-router-dom";
 class App extends React.Component {
@@ -46,7 +45,7 @@ class App extends React.Component {
           <Route path="/new" component={NewArticle} />
           <Route path='/settings' component={Settings} />
           <Route path="/profile/:slug" component={UserProfile} />
-          <Route path="/profile/:slug" component={LoggedUserProfile} />
+          
 
 
 

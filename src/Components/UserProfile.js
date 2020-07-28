@@ -6,8 +6,8 @@ import Header from "./Header";
 
 class UserProfile extends Component {
   componentDidMount() {
-    let slug = this.props.match.params.slug;
-    let url = `https://conduit.productionready.io/api/profiles/${slug}`;
+    let username = this.props.match.params.slug;
+    let url = `https://conduit.productionready.io/api/profiles/${username}`;
     fetch(url, {
       method: "GET",
       headers: {
@@ -43,24 +43,24 @@ class UserProfile extends Component {
 
   render() {
     let { username, image, bio, following } = this.props.state.userProfile;
+
     return (
       <>
         <Header />
         <section className="hero-section">
           <div className="container">
-            
-            <img src={image} className='hero-image' alt={username} />
+            <img src={image} className="hero-image" alt={username} />
             <p className="hero-description">{username}</p>
             <p className="hero-description">{bio}</p>
           </div>
-          {following ? (
-            <button onClick={this.handleFollow}>
-              Unfollow
-            </button>
+
+          {this.props.state.loggedUser.username &&
+          this.props.state.loggedUser.username === username ? (
+            <Link to="/settings">Edit Profile</Link>
+          ) : following ? (
+            <button>Unfollow</button>
           ) : (
-            <button onClick={this.handleFollow}>
-              Follow
-            </button>
+            <button>follow</button>
           )}
         </section>
       </>
