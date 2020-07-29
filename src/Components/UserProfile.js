@@ -8,8 +8,8 @@ class UserProfile extends Component {
   componentDidMount() {
     let username = this.props.match.params.slug;
     let url = `https://conduit.productionready.io/api/profiles/${username}`;
-    let url2 = `https://conduit.productionready.io/api/articles?author=lula1234&limit=5&offset=0`
-    let url3 = `https://conduit.productionready.io/api/articles?favorited=lula1234&limit=5&offset=0`
+    let url2 = `https://conduit.productionready.io/api/articles?author=lula1234&limit=5&offset=0`;
+    let url3 = `https://conduit.productionready.io/api/articles?favorited=lula1234&limit=5&offset=0`;
     fetch(url, {
       method: "GET",
       headers: {
@@ -21,6 +21,29 @@ class UserProfile extends Component {
       .then(({ profile }) => {
         return this.props.dispatch({ type: USER_PROFILE, payload: profile });
       });
+  }
+
+  componentDidUpdate(prevProps) {
+    let username = this.props.match.params.slug;
+    let url = `https://conduit.productionready.io/api/profiles/${username}`;
+    let url2 = `https://conduit.productionready.io/api/articles?author=lula1234&limit=5&offset=0`;
+    let url3 = `https://conduit.productionready.io/api/articles?favorited=lula1234&limit=5&offset=0`;
+    if (
+      prevProps.state.userProfile.username ===
+      this.props.state.userProfile.username
+    ) {
+      fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Token ${localStorage.authToken}`,
+        },
+      })
+        .then((res) => res.json())
+        .then(({ profile }) => {
+          return this.props.dispatch({ type: USER_PROFILE, payload: profile });
+        });
+    }
   }
 
   handleFollow = () => {
@@ -53,19 +76,24 @@ class UserProfile extends Component {
           <div className="container">
             <img src={image} className="hero-image" alt={username} />
             <p className="hero-description">{username}</p>
-            
           </div>
-      <div className='container'>
-      <div className='followedit'>
-          {this.props.state.loggedUser.username &&
-          this.props.state.loggedUser.username === username ? (
-            <Link to="/settings"><button className='followbtn'>Edit Profile</button></Link>
-          ) : following ? (
-            <button className='followbtn' onClick={this.handleFollow}>Unfollow</button>
-          ) : (
-            <button className='followbtn' onClick={this.handleFollow}>follow</button>
-          )}
-          </div>
+          <div className="container">
+            <div className="followedit">
+              {this.props.state.loggedUser.username &&
+              this.props.state.loggedUser.username === username ? (
+                <Link to="/settings">
+                  <button className="followbtn">Edit Profile</button>
+                </Link>
+              ) : following ? (
+                <button className="followbtn" onClick={this.handleFollow}>
+                  Unfollow
+                </button>
+              ) : (
+                <button className="followbtn" onClick={this.handleFollow}>
+                  follow
+                </button>
+              )}
+            </div>
           </div>
         </section>
       </>

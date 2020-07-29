@@ -18,7 +18,7 @@ const initalState = {
   loggedUser: [],
   isLoggedIn: false,
   error: "",
-  singleArticle: {},
+  singleArticle: [],
   userProfile: {},
   comments: [],
 };

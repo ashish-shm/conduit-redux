@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Header from "./Header";
 import { singleArticle, addComment, fetchComments } from "../store/actions";
+import { Link } from "react-router-dom";
 
 class SingleArticle extends Component {
   constructor(props) {
@@ -76,8 +77,14 @@ class SingleArticle extends Component {
                     </p>
                   </li>
                 </ul>
-                <div></div>
+                <div>
+                {singleArticle.author &&
+          (this.props.state.loggedUser.username) === (singleArticle.author.username) ? (<button>Edit</button>) : (null) }
+          {singleArticle.author &&
+          (this.props.state.loggedUser.username) === (singleArticle.author.username) ? (<button>Delete</button>) : (null) }
+                </div>
               </div>
+              
             </section>
           </div>
           <div className="body-section container">
@@ -100,9 +107,14 @@ class SingleArticle extends Component {
             <ul>
               {this.props.state.comments
                 ? this.props.state.comments.map((comment) => (
-                    <li className='oneComment'>
-                      <h2 className='comment-author'>Author: {comment.author.username}</h2>
-                      <p className='comment-body'>{comment.body}</p>
+                    <li className="oneComment">
+                      <Link to={`/profile/${comment.author.username}`} className="comment-author">
+                        Author: {comment.author.username}
+                      </Link>
+                      <p className="commentDate">
+                        {new Date(comment.createdAt).toDateString()}
+                      </p>
+                      <p className="comment-body">{comment.body}</p>
                     </li>
                   ))
                 : null}
